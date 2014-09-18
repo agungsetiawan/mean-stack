@@ -9,7 +9,12 @@ var app=express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(express.static(__dirname+'/public'));
 
-app.use(comments);
+app.use('/api',comments);
+
+app.get('*', function(req, res) {
+		res.sendFile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+	});
 
 app.listen(8181);
